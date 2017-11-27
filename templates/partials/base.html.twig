@@ -17,12 +17,18 @@
         {% do assets.addCss('https://unpkg.com/purecss@1.0.0/build/pure-min.css', 100) %}
         {% do assets.addCss('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', 99) %}
         {% do assets.addCss('theme://css/main.css', 99) %}
-        {% do assets.addCss('theme://css/custom.css', 98) %}
+        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+            {% do assets.addCss('theme://css/ie8.css', 98) %}
+        {% endif %}
+        {% do assets.addCss('theme://css/custom.css', 97) %}
     {% endblock %}
     {{ assets.css() }}
 
     {% block javascripts %}
         {% do assets.addJs('jquery', 100) %}
+        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
+            {% do assets.addJs('theme://js/ie/html5shiv.js', 99) %}
+        {% endif %}
     {% endblock %}
     {{ assets.js() }}
 

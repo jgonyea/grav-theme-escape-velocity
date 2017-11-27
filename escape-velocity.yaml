@@ -1,3 +1,21 @@
 enabled: true
 dropdown:
   enabled: true
+slogan: 'A free responsive site template by HTML5 UP'
+footer:
+  title: 'Ipsum sapien elementum portitor?'
+  text: "Sed turpis tortor, tincidunt sed ornare in metus porttitor mollis nunc in aliquet. \r\nNam pharetra laoreet imperdiet volutpat etiam consequat feugiat."
+contact:
+  email: webmaster@example.com
+  phone: '(555) 555-5555'
+  street: '123 Any Street'
+  city: AnyTown
+  state: CA
+  zip: '12345'
+  name: 'My Company'
+social:
+  twitter: asdf
+  facebook: asdf
+  snap: asdf
+  instagram: asdf
+  medium: asdf
