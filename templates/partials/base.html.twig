@@ -1,0 +1,173 @@
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+<!DOCTYPE html>
+<html lang="{{ grav.language.getActive ?: theme_config.default_lang }}">
+<head>
+{% block head %}
+    <meta charset="utf-8" />
+    <title>{% if header.title %}{{ header.title|e('html') }} | {% endif %}{{ site.title|e('html') }}</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'partials/metadata.html.twig' %}
+
+    <link rel="icon" type="image/png" href="{{ url('theme://images/logo.png') }}" />
+    <link rel="canonical" href="{{ page.url(true, true) }}" />
+
+    {% block stylesheets %}
+        {% do assets.addCss('https://unpkg.com/purecss@1.0.0/build/pure-min.css', 100) %}
+        {% do assets.addCss('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', 99) %}
+        {% do assets.addCss('theme://css/main.css', 99) %}
+        {% do assets.addCss('theme://css/custom.css', 98) %}
+    {% endblock %}
+    {{ assets.css() }}
+
+    {% block javascripts %}
+        {% do assets.addJs('jquery', 100) %}
+    {% endblock %}
+    {{ assets.js() }}
+
+{% endblock head%}
+</head>
+<body id="top" class="{{ page.header.body_classes }}">
+
+
+    <div id="page-wrapper">
+        <!-- Header -->
+        {% block header %}
+        <div id="header-wrapper" class="wrapper">
+            <div id="header">
+                <!-- Logo -->
+                <div id="logo">
+                        <h1><a href="{{ base_url == '' ? '/' : base_url }}">{{ config.site.title }}</a></h1>
+                        <p>{{ theme_config.slogan }}</p>
+                </div>
+                <!-- Navigation -->
+                {% block header_navigation %}
+                <nav id="nav">
+                    {% include 'partials/navigation.html.twig' %}
+                </nav>
+                {% endblock %}
+            </div>
+        </div> <!-- End #header-wrapper -->
+        {% endblock %}
+        <!-- Main -->
+        {% block body %}
+            <div class="wrapper style2">
+                <div class="title">{{ page.header.title }}</div>
+                <div id="main" class="container">
+                {% block content %}{% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+
+        <!-- Featured -->
+        {% include 'partials/featured.html.twig' %}
+
+        <!-- Footer -->
+        {% block footer %}
+        <div id="footer-wrapper" class="wrapper">
+            <div class="title">Contact Us</div>
+            <div id="footer" class="container">
+                <header class="style1">
+                        <h2>{{ theme_config.footer.title }}</h2>
+                        <p>{{ theme_config.footer.text }}</p>
+
+                </header>
+                <hr />
+                <div class="row 150%">
+                        <div class="6u 12u(mobile)">
+
+                                <!-- Contact Form -->
+                                        <section>
+                                                <form method="post" action="#">
+                                                        <div class="row 50%">
+                                                                <div class="6u 12u(mobile)">
+                                                                        <input type="text" name="name" id="contact-name" placeholder="Name" />
+                                                                </div>
+                                                                <div class="6u 12u(mobile)">
+                                                                        <input type="text" name="email" id="contact-email" placeholder="Email" />
+                                                                </div>
+                                                        </div>
+                                                        <div class="row 50%">
+                                                                <div class="12u">
+                                                                        <textarea name="message" id="contact-message" placeholder="Message" rows="4"></textarea>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="12u">
+                                                                        <ul class="actions">
+                                                                                <li><input type="submit" class="style1" value="Send" /></li>
+                                                                                <li><input type="reset" class="style2" value="Reset" /></li>
+                                                                        </ul>
+                                                                </div>
+                                                        </div>
+                                                </form>
+                                        </section>
+
+                        </div>
+                        <div class="6u 12u(mobile)">
+
+                                <!-- Contact -->
+                                        <section class="feature-list small">
+                                                <div class="row">
+                                                        <div class="6u 12u(mobile)">
+                                                                <section>
+                                                                        <h3 class="icon fa-home">Mailing Address</h3>
+                                                                        <p>{{ theme_config.contact.name }}<br />
+                                                                                {{ theme_config.contact.street }}<br />
+                                                                                {{ theme_config.contact.city }}, {{ theme_config.contact.state }} {{ theme_config.contact.zip }}
+                                                                        </p>
+                                                                </section>
+                                                        </div>
+                                                        <div class="6u 12u(mobile)">
+                                                                <section>
+                                                                        <h3 class="icon fa-comment">Social</h3>
+                                                                        {% include 'partials/socialIcons.html.twig' %}
+                                                                </section>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="6u 12u(mobile)">
+                                                                <section>
+                                                                        <h3 class="icon fa-envelope">Email</h3>
+                                                                        <p>
+                                                                                <a href="#">{{ theme_config.contact.email }}</a>
+                                                                        </p>
+                                                                </section>
+                                                        </div>
+                                                        <div class="6u 12u(mobile)">
+                                                                <section>
+                                                                        <h3 class="icon fa-phone">Phone</h3>
+                                                                        <p>
+                                                                                {{ theme_config.contact.phone }}
+                                                                        </p>
+                                                                </section>
+                                                        </div>
+                                                </div>
+                                        </section>
+
+                        </div>
+                </div>
+                <hr />
+            </div>
+            <div id="copyright">
+                <ul>
+                    <li>&copy; {{ config.site.title }}</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </div>
+
+        {% endblock %}
+
+    </div> <!-- End #page-wrapper -->
+
+
+
+
+
+{% block bottom %}
+    {{ assets.js('bottom') }}
+{% endblock %}
+
+</body>
+</html>

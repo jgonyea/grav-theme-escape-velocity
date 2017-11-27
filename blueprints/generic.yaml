@@ -1,0 +1,45 @@
+title: Generic Page
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        featured:
+          type: tab
+          title: 'Featured Section'
+          ordering@: 1
+          fields:
+                featured.tagline.spacer:
+                    type: spacer
+                    ordering@: 1
+                    title: Header Taglines
+                header.featured.tagline1:
+                    type: text
+                    ordering@: 2
+                    label: 'Large Tagline'
+                header.featured.tagline2:
+                    type: text
+                    ordering@: 3
+                    label: 'Small Tagline'
+                featured.image.spacer:
+                    type: spacer
+                    ordering@: 4
+                    title: Featured Image
+                header.featured.image:
+                    type: file
+                    ordering@: 5
+                    label: Featured Image
+                    multiple: false
+                    destination: '@self'
+                    accept:
+                      - image/*
+                header.featured.imageAlt:
+                    type: text
+                    ordering@: 6
+                    label: Featured Image Alt Text
+

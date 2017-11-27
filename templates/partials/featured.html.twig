@@ -1,0 +1,27 @@
+{% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+{% set featuredPages = page.collection({'items':{'@taxonomy':{'category': 'featured'}},'order': {'by': 'default', 'dir': 'asc'}}).remove(page).slice(0,3) %}
+{% if count(featuredPages) > 1 %}
+<div class="wrapper style3">
+    <div class="title">Featured Pages</div>
+    <div id="highlights" class="container">
+        <div class="row 150%">
+            {% for feature in featuredPages %}
+            <div class="4u 12u(mobile)">
+                <section class="highlight">
+                    <h3><a href="{{ feature.url(true) }}">{{ feature.header.title }}</a></h3>
+                    {% if feature.header.featured.image %}
+                    <a href="{{ feature.url(true) }}" class="image featured"><img src="{{base_url ~ "/" ~ feature.header.featured.image|first.path}}" alt="" /></a>
+                    {% endif %}
+                    {% if feature.summary()|length > 0 %}
+                        {{ feature.summary(120) }}
+                    {% endif %}
+                    <ul class="actions">
+                        <li><a href="{{ feature.url(true) }}" class="button style1">Learn More</a></li>
+                    </ul>
+                </section>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}

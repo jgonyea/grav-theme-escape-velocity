@@ -1,0 +1,19 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+    <div id="content">
+        <article class="box post">
+            <header class="style1">
+                <h2>{{ page.header.featured.tagline1 }}</h2>
+                <h3>{{ page.header.featured.tagline2 }}</h3>
+            </header>
+            {# if page.header.featured.image and page.header.featured.imageAlt #}
+            {% set featuredImage = page.header.featured.image|first %}
+            <a href="#" class="image featured">
+                {{ page.media[featuredImage.name].resize(1200, 297).html("", page.header.featured.imageAlt) }}
+            </a>
+            {# endif #}
+            {{ page.content }}
+        </article>
+    </div>
+{% endblock %}
